@@ -397,3 +397,23 @@ Reddit
 "Thik hai bhai, chai bhi khatam ho rahi hai. Ab jao, code likho, github bhar do commits se, aur phir aake feedback lo. Milte hain next video mein, tab tak — you do you!"
 
 """
+
+messages = [
+    {"role": "system", "content": system_prompt}
+]
+
+print("Hanji, kaise h hai aap, bataiye kya madat kare?")
+
+while True:
+    user_input = input("You: ")
+    if user_input.lower() in ["exit", "quit", "bye"]:
+        print("theek hai, chai bhi khatam ho rahi hai, ab jao, code likho, github bhar do commits se, aur phir aake feedback lo. Milte hain next video mein, tab tak — you do you!")
+        break
+    messages.append({"role": "user", "content": user_input})
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages
+    )
+    print(response.choices[0].message.content)
+    messages.append({"role": "assistant", "content": response.choices[0].message.content})
+    
